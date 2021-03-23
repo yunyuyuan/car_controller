@@ -10,15 +10,15 @@ class MyTabView extends DefaultTabController {
               tabs: [
                 Tab(
                   icon: Icon(
-                    Icons.control_camera, size: 26,
+                    Icons.control_camera, size: 30,
                   ),
                   text: "Control",
-                  iconMargin: const EdgeInsets.only(bottom: 5.0),
+                  iconMargin: const EdgeInsets.only(bottom: 3.0),
                 ),
                 Tab(
-                  icon: Icon(Icons.bluetooth_connected, size: 26),
+                  icon: Icon(Icons.link, size: 30),
                   text: "Connect",
-                  iconMargin: const EdgeInsets.only(bottom: 5.0),
+                  iconMargin: const EdgeInsets.only(bottom: 3.0),
                 ),
               ],
               labelColor: Colors.greenAccent,

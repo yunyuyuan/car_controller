@@ -53,15 +53,32 @@ class SliderState extends State<MySlider> {
   Widget build(Object context) {
     double totalWidth = grooveWidth + thumbSize;
     double maxStep = grooveWidth / (2 * divide);
+    Function reset = (){
+      setState(() {
+        valueNow = 0;
+      });
+    };
+    Function handle = (e){
+      double x = (widget.orient==Orients.horizontal?e.localPosition.dx:e.localPosition.dy )- thumbSize / 2;
+      if (x >= 0 && x <= grooveWidth) {
+        setState(() {
+          valueNow = (x / divide).round().toDouble() - maxStep;
+        });
+      }
+    };
     if (widget.orient == Orients.horizontal) {
       return GestureDetector(
         onHorizontalDragUpdate: (e) {
-          double x = e.localPosition.dx - thumbSize / 2;
-          if (x >= 0 && x <= grooveWidth) {
-            setState(() {
-              valueNow = (x / divide).round().toDouble() - maxStep;
-            });
-          }
+          handle(e);
+        },
+        onTapDown: (e) {
+          handle(e);
+        },
+        onTapUp: (e) {
+          reset();
+        },
+        onHorizontalDragEnd: (e) {
+          reset();
         },
         child: SizedBox(
           width: totalWidth,
@@ -114,12 +131,16 @@ class SliderState extends State<MySlider> {
 
       return GestureDetector(
         onVerticalDragUpdate: (e) {
-          double x = e.localPosition.dy - thumbSize / 2;
-          if (x >= 0 && x <= grooveWidth) {
-            setState(() {
-              valueNow = (x / divide).round().toDouble() - maxStep;
-            });
-          }
+          handle(e);
+        },
+        onTapDown: (e) {
+          handle(e);
+        },
+        onTapUp: (e) {
+          reset();
+        },
+        onVerticalDragEnd: (e) {
+          reset();
         },
         child: SizedBox(
           height: totalWidth,
