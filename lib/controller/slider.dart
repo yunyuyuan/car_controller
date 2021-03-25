@@ -23,7 +23,7 @@ final trackDecoration = BoxDecoration(color: Color(0xFF0022FF), boxShadow: [
 ]);
 final thumbDecoration = BoxDecoration(
     color: Color(0xFFFFA200),
-    borderRadius: BorderRadius.circular(15),
+    borderRadius: BorderRadius.circular(20),
     boxShadow: [
       BoxShadow(
           color: Color(0xFF5A5A5A),
@@ -43,7 +43,7 @@ class MySlider extends StatefulWidget {
 
 class SliderState extends State<MySlider> {
   final double grooveWidth = 200;
-  final double thumbSize = 30;
+  final double thumbSize = 40;
   final double grooveHeight = 10;
 
   double valueNow = 0;

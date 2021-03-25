@@ -1,4 +1,4 @@
-import 'package:car_controller/slider.dart';
+import 'package:car_controller/controller/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
