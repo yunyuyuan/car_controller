@@ -81,7 +81,13 @@ class ConnectState extends State<Connect>
                             });
                             var instance = BluetoothClient(server: e);
                             try {
-                              var _ = await instance.connect();
+                              var _ = await instance.connect((){
+                                // disconnected
+                                setState(() {
+                                  active = null;
+                                  connecting = null;
+                                });
+                              });
                               setState(() {
                                 active = e;
                                 widget.changeClient(instance);

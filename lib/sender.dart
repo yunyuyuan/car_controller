@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:mutex/mutex.dart';
@@ -12,10 +12,11 @@ class BluetoothClient{
 
   BluetoothClient({this.server});
 
-  Future connect() async {
+  Future connect(Function disconnectHandle) async {
     var handle = Completer();
     BluetoothConnection.toAddress(server.address).then((_connection){
       connection = _connection;
+      recv(disconnectHandle);
       handle.complete();
     }).onError((error, stackTrace){
       handle.completeError(error);
@@ -24,7 +25,7 @@ class BluetoothClient{
   }
 
   disconnect(){
-    connection.dispose();
+    connection.close();
   }
 
   send(Map<String, dynamic> data) async {
@@ -35,7 +36,18 @@ class BluetoothClient{
     lock.release();
   }
 
-  recv(){
+  recv(Function disconnectHandle){
+    connection.input.listen((Uint8List data) {
+      connection.output.add(data); // Sending data
 
+      if (ascii.decode(data).contains('!')) {
+        disconnect();
+        print('!!!! Disconnecting by local host');
+        disconnectHandle();
+      }
+    }).onDone(() {
+      print('!!!! Disconnected by remote request');
+      disconnectHandle();
+    });
   }
 }
