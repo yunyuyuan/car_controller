@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 enum Orients { vertical, horizontal }
-
 final grooveDecoration = BoxDecoration(
     color: Color(0xFFCDCDCD),
     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -32,10 +31,12 @@ final thumbDecoration = BoxDecoration(
           offset: Offset(0, 0))
     ]);
 
+
 class MySlider extends StatefulWidget {
   final Orients orient;
+  final Function valueChange;
 
-  MySlider({this.orient}) : super();
+  MySlider({this.orient, this.valueChange}) : super();
 
   @override
   State createState() => SliderState();
@@ -49,6 +50,10 @@ class SliderState extends State<MySlider> {
   double valueNow = 0;
   final double divide = 10;
 
+  void valueChange(){
+    widget.valueChange(valueNow);
+  }
+
   @override
   Widget build(Object context) {
     double totalWidth = grooveWidth + thumbSize;
@@ -57,13 +62,17 @@ class SliderState extends State<MySlider> {
       setState(() {
         valueNow = 0;
       });
+      valueChange();
     };
     Function handle = (e){
       double x = (widget.orient==Orients.horizontal?e.localPosition.dx:e.localPosition.dy )- thumbSize / 2;
       if (x >= 0 && x <= grooveWidth) {
+        var newValue = (x / divide).round().toDouble() - maxStep;
+        if (valueNow == newValue) return;
         setState(() {
-          valueNow = (x / divide).round().toDouble() - maxStep;
+          valueNow = newValue;
         });
+        valueChange();
       }
     };
     if (widget.orient == Orients.horizontal) {

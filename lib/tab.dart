@@ -40,7 +40,7 @@ class MyTabView extends DefaultTabController {
               physics: NeverScrollableScrollPhysics(),
               children: children,
             ),
-            backgroundColor: Colors.white30,
+            backgroundColor: Colors.black87,
           ),
         );
 }

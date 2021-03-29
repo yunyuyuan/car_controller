@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   system_setting:
   flutter_bluetooth_serial: ^0.2.2
+  mutex:
 dev_dependencies:
   flutter_test:
     sdk: flutter
