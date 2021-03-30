@@ -28,7 +28,7 @@ class OptionViewState extends State<OptionView>{
             Row(
               children: [
                 Text("速度倍率"),
-                Slider(value: speedStrength, divisions: 4, min: 1, max: 5, onChanged: (double val){
+                Slider(value: speedStrength, divisions: 7, min: 1, max: 8, onChanged: (double val){
                   if (widget.disabled) return;
                   var newVal = val;
                   if (newVal == speedStrength) return;
