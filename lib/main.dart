@@ -1,7 +1,7 @@
 import 'package:car_controller/connect/connect.dart';
 import 'package:car_controller/controller/controller.dart';
 import 'package:car_controller/tab.dart';
-import 'package:car_controller/sender.dart';
+import 'package:car_controller/util/sender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

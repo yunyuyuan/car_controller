@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:car_controller/connect/device_item.dart';
-import 'package:car_controller/sender.dart';
+import 'package:car_controller/util/iconfont.dart';
+import 'package:car_controller/util/sender.dart';
+import 'package:car_controller/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:system_setting/system_setting.dart';
@@ -42,8 +44,8 @@ class ConnectState extends State<Connect>
       children: [
         TextButton.icon(
             icon: Icon(
-              Icons.settings,
-              size: 20,
+              IconFont.setting,
+              size: 16,
             ),
             onPressed: () {
               SystemSetting.goto(SettingTarget.BLUETOOTH);
@@ -51,8 +53,8 @@ class ConnectState extends State<Connect>
             label: Text('open system bluetooth setting')),
         TextButton.icon(
             icon: Icon(
-              Icons.refresh,
-              size: 20,
+              IconFont.refresh,
+              size: 16,
             ),
             onPressed: () {
               refresh();
@@ -66,7 +68,8 @@ class ConnectState extends State<Connect>
                           active: e.address == active?.address,
                           connecting: connecting?.address == e.address,
                           onTap: () async {
-                            if (connecting != null || active?.address == e.address) return;
+                            if (connecting != null ||
+                                active?.address == e.address) return;
                             // disconnect
                             if (widget.client != null) {
                               try {
@@ -81,27 +84,34 @@ class ConnectState extends State<Connect>
                             });
                             var instance = BluetoothClient(server: e);
                             try {
-                              var _ = await instance.connect((){
+                              var _ = await instance.connect((String message) {
                                 // disconnected
                                 setState(() {
                                   active = null;
                                   connecting = null;
                                 });
+                                Util.showSnackbar(
+                                    context: context,
+                                    message: message,
+                                    icon: Icon(
+                                      IconFont.disconnected,
+                                      size: 20,
+                                      color: Colors.redAccent,
+                                    ));
                               });
                               setState(() {
                                 active = e;
                                 widget.changeClient(instance);
                               });
                             } catch (err) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      margin: EdgeInsets.only(
-                                          bottom: 100, left: 30, right: 30),
-                                      content: Container(
-                                        child: Text(err.toString()),
-                                        height: 50,
-                                      ),
-                                      behavior: SnackBarBehavior.floating));
+                              Util.showSnackbar(
+                                  context: context,
+                                  message: err.toString(),
+                                  icon: Icon(
+                                    IconFont.err,
+                                    size: 20,
+                                    color: Colors.redAccent,
+                                  ));
                             }
                             setState(() {
                               connecting = null;

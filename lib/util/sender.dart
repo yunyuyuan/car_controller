@@ -38,16 +38,12 @@ class BluetoothClient{
 
   recv(Function disconnectHandle){
     connection.input.listen((Uint8List data) {
-      connection.output.add(data); // Sending data
-
       if (ascii.decode(data).contains('!')) {
         disconnect();
-        print('!!!! Disconnecting by local host');
-        disconnectHandle();
+        disconnectHandle("Disconnecting by local host");
       }
     }).onDone(() {
-      print('!!!! Disconnected by remote request');
-      disconnectHandle();
+      disconnectHandle("Disconnecting by remote host");
     });
   }
 }
