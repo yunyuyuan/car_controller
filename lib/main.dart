@@ -39,6 +39,7 @@ class _ContainerState extends State<_Container> {
   @override
   void initState() {
     client = null;
+    super.initState();
   }
 
   @override
@@ -47,8 +48,9 @@ class _ContainerState extends State<_Container> {
       body: MyTabView(
           title: widget.title,
           length: 2,
+          connected: client!=null,
           children: [
-            Controller(client: client,),
+            Controller(client: client,disabled: client==null),
             Connect(changeClient: changeClient, client: client,),
           ]),
     );

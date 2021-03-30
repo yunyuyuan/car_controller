@@ -90,6 +90,8 @@ class ConnectState extends State<Connect>
                                   active = null;
                                   connecting = null;
                                 });
+                                widget.changeClient(null);
+
                                 Util.showSnackbar(
                                     context: context,
                                     message: message,
@@ -116,6 +118,47 @@ class ConnectState extends State<Connect>
                             setState(() {
                               connecting = null;
                             });
+                          },
+                          onLongPress: () {
+                            if (active?.address != e.address) return;
+                            showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                      title: Text("断开 ${e.name} 连接?"),
+                                      actions: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(ctx);
+                                          },
+                                          child: Text("取消",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Color(0xff727272)),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(ctx);
+                                              setState(() {
+                                                active = null;
+                                                connecting = null;
+                                              });
+                                              widget.changeClient(null);
+                                            },
+                                            child: Text("确定",
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Color(0xFFFF1F1F)),
+                                            )),
+                                      ],
+                                    ),
+                                barrierDismissible: true);
                           },
                         ))
                     .toList()))

@@ -6,8 +6,9 @@ import 'package:flutter/widgets.dart';
 
 class Controller extends StatefulWidget {
   final BluetoothClient client;
+  final bool disabled;
 
-  Controller({this.client}) : super();
+  Controller({this.client, this.disabled}) : super();
 
   @override
   State<StatefulWidget> createState() => ControllerState();
@@ -34,15 +35,19 @@ class ControllerState extends State<Controller>
                   margin: EdgeInsets.only(left: 30, right: 30),
                   child: MySlider(
                     orient: Orients.vertical,
+                    disabled: widget.disabled,
                     valueChange: (value) {
-                      widget.client.send({"type": "left-right", "value": value});
+                      widget.client
+                          .send({"type": "left-right", "value": value});
                     },
                   ),
                 ),
                 Expanded(
                     child: OptionView(
+                  disabled: widget.disabled,
                   changeSpeedStrength: (val) {
-                    widget.client.send({"type": "speed-strength", "value": val});
+                    widget.client
+                        .send({"type": "speed-strength", "value": val});
                   },
                   changeSteerAngle: (val) {
                     widget.client.send({"type": "steer-angle", "value": val});
@@ -56,6 +61,7 @@ class ControllerState extends State<Controller>
           // forward - backward
           MySlider(
             orient: Orients.horizontal,
+            disabled: widget.disabled,
             valueChange: (value) {
               widget.client.send({"type": "forward-backward", "value": value});
             },

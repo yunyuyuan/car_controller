@@ -7,8 +7,9 @@ class DeviceItem extends ListTile {
   final bool active;
   final bool connecting;
   final GestureTapCallback onTap;
+  final GestureTapCallback onLongPress;
 
-  DeviceItem({this.device, this.active, this.onTap, this.connecting}) : super();
+  DeviceItem({this.device, this.active, this.onTap, this.connecting, this.onLongPress}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class DeviceItem extends ListTile {
       margin: EdgeInsets.only(top: 20, left: 15, right: 15),
       child: InkWell(
           onTap: onTap,
+          onLongPress: onLongPress,
           child: Ink(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(

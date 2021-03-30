@@ -31,13 +31,24 @@ final thumbDecoration = BoxDecoration(
           blurRadius: 5,
           offset: Offset(0, 0))
     ]);
+final disabledThumbDecoration = BoxDecoration(
+    color: Color(0xFF717171),
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+          color: Color(0xFF5A5A5A),
+          spreadRadius: 1,
+          blurRadius: 5,
+          offset: Offset(0, 0))
+    ]);
 
 
 class MySlider extends StatefulWidget {
   final Orients orient;
   final Function valueChange;
+  final bool disabled;
 
-  MySlider({this.orient, this.valueChange}) : super();
+  MySlider({this.orient, this.valueChange, this.disabled}) : super();
 
   @override
   State createState() => SliderState();
@@ -60,12 +71,14 @@ class SliderState extends State<MySlider> {
     double totalWidth = grooveWidth + thumbSize;
     double maxStep = grooveWidth / (2 * divide);
     Function reset = (){
+      if (widget.disabled) return;
       setState(() {
         valueNow = 0;
       });
       valueChange();
     };
     Function handle = (e){
+      if (widget.disabled) return;
       double x = (widget.orient==Orients.horizontal?e.localPosition.dx:e.localPosition.dy )- thumbSize / 2;
       if (x >= 0 && x <= grooveWidth) {
         var newValue = (x / divide).round().toDouble() - maxStep;
@@ -132,7 +145,7 @@ class SliderState extends State<MySlider> {
                 width: thumbSize,
                 height: thumbSize,
                 child: Container(
-                  decoration: thumbDecoration,
+                  decoration: widget.disabled?disabledThumbDecoration:thumbDecoration,
                 )),
           ]),
         ),
@@ -194,7 +207,7 @@ class SliderState extends State<MySlider> {
                 width: thumbSize,
                 height: thumbSize,
                 child: Container(
-                  decoration: thumbDecoration,
+                  decoration: widget.disabled?disabledThumbDecoration:thumbDecoration,
                 )),
           ]),
         ),

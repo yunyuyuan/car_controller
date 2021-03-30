@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyTabView extends DefaultTabController {
-  MyTabView({Key key, String title, int length, children})
+  MyTabView({Key key, String title, bool connected, int length, children})
       : super(
           key: key,
           length: length,
@@ -10,7 +10,8 @@ class MyTabView extends DefaultTabController {
               tabs: [
                 Tab(
                   icon: Icon(
-                    Icons.control_camera, size: 30,
+                    Icons.control_camera,
+                    size: 30,
                   ),
                   text: "Control",
                   iconMargin: const EdgeInsets.only(bottom: 3.0),
@@ -27,13 +28,25 @@ class MyTabView extends DefaultTabController {
                 fontWeight: FontWeight.bold,
               ),
               unselectedLabelColor: Colors.white,
-              unselectedLabelStyle: TextStyle(
-                fontWeight: FontWeight.normal
-              ),
+              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
               indicatorColor: Colors.transparent,
             ),
             appBar: AppBar(
-              title: Text(title),
+              backgroundColor: Color(0xff424242),
+              title: Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    '(${connected ? "已" : "未"}连接)',
+                    style: TextStyle(color: connected?Color(0xff7ffffb):Color(0xffff8f8f)),
+                  ),
+                ],
+              ),
             ),
             body: TabBarView(
               // disable swipe
