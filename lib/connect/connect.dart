@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:car_controller/connect/device_item.dart';
 import 'package:car_controller/util/iconfont.dart';
