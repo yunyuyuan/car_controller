@@ -5,6 +5,16 @@ import 'package:flutter/material.dart';
 
 enum Orients { vertical, horizontal }
 final grooveDecoration = BoxDecoration(
+    color: Color(0xFF7CBAFF),
+    borderRadius: BorderRadius.all(Radius.circular(5)),
+    boxShadow: [
+      BoxShadow(
+          color: Color(0xFFE9FFDA),
+          spreadRadius: 0,
+          blurRadius: 3,
+          offset: Offset(0, 0))
+    ]);
+final disabledGrooveDecoration = BoxDecoration(
     color: Color(0xFFCDCDCD),
     borderRadius: BorderRadius.all(Radius.circular(5)),
     boxShadow: [
@@ -123,7 +133,7 @@ class SliderState extends State<MySlider> {
                 width: grooveWidth,
                 height: grooveHeight,
                 child: Container(
-                  decoration: grooveDecoration,
+                  decoration: widget.disabled?disabledGrooveDecoration:grooveDecoration,
                 )),
             /* track */
             Positioned(
@@ -185,7 +195,7 @@ class SliderState extends State<MySlider> {
                 width: grooveHeight,
                 height: grooveWidth,
                 child: Container(
-                  decoration: grooveDecoration,
+                  decoration: widget.disabled?disabledGrooveDecoration:grooveDecoration,
                 )),
             /* track */
             Positioned(

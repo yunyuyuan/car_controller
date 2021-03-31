@@ -32,7 +32,7 @@ class ControllerState extends State<Controller>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 30, right: 30),
+                  margin: EdgeInsets.only(left: 40, right: 30),
                   child: MySlider(
                     orient: Orients.vertical,
                     disabled: widget.disabled,
@@ -59,12 +59,15 @@ class ControllerState extends State<Controller>
           // left - right
           SizedBox(height: 100),
           // forward - backward
-          MySlider(
-            orient: Orients.horizontal,
-            disabled: widget.disabled,
-            valueChange: (value) {
-              widget.client.send({"type": "forward-backward", "value": value});
-            },
+          Container(
+            margin: EdgeInsets.only(left: 20),
+            child: MySlider(
+              orient: Orients.horizontal,
+              disabled: widget.disabled,
+              valueChange: (value) {
+                widget.client.send({"type": "forward-backward", "value": value});
+              },
+            ),
           ),
         ],
       ),
