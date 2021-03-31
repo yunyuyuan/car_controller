@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:app_settings/app_settings.dart';
 import 'package:car_controller/connect/device_item.dart';
 import 'package:car_controller/util/iconfont.dart';
 import 'package:car_controller/util/sender.dart';
 import 'package:car_controller/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:system_setting/system_setting.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class Connect extends StatefulWidget {
@@ -46,8 +46,8 @@ class ConnectState extends State<Connect>
               IconFont.setting,
               size: 16,
             ),
-            onPressed: () {
-              SystemSetting.goto(SettingTarget.BLUETOOTH);
+            onPressed: ()async {
+              AppSettings.openBluetoothSettings();
             },
             label: Text('open system bluetooth setting')),
         TextButton.icon(

@@ -1,6 +1,5 @@
-import 'dart:developer';
+import 'dart:math';
 
-import 'package:car_controller/util/util.dart';
 import 'package:flutter/material.dart';
 
 enum Orients { vertical, horizontal }
@@ -141,10 +140,8 @@ class SliderState extends State<MySlider> {
                 top: (thumbSize - grooveHeight) / 2,
                 width: valueNow.abs() * divide,
                 height: grooveHeight,
-                child: Transform(
-                    transform: Matrix4.rotationZ(
-                        (valueNow < 0 ? 180 : 0) * Util.arc),
-                    alignment: FractionalOffset.centerLeft,
+                child: Transform.rotate(
+                    angle: valueNow < 0 ?pi : 0,
                     child: Container(
                       decoration: trackDecoration,
                     ))),
@@ -203,10 +200,8 @@ class SliderState extends State<MySlider> {
                 top: totalWidth / 2,
                 width: grooveHeight,
                 height: valueNow.abs() * divide,
-                child: Transform(
-                    transform: Matrix4.rotationZ(
-                        (valueNow < 0 ? 180 : 0) * Util.arc),
-                    alignment: FractionalOffset.topCenter,
+                child: Transform.rotate(
+                    angle: valueNow < 0 ? pi : 0,
                     child: Container(
                       decoration: trackDecoration,
                     ))),

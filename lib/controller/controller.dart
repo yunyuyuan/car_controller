@@ -22,17 +22,18 @@ class ControllerState extends State<Controller>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          IntrinsicHeight(
+          Flexible(
+            flex: 5,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 40, right: 30),
+                  margin: EdgeInsets.only(left: 40, right: 30, top: 30),
                   child: MySlider(
                     orient: Orients.vertical,
                     disabled: widget.disabled,
@@ -42,7 +43,8 @@ class ControllerState extends State<Controller>
                     },
                   ),
                 ),
-                Expanded(
+                Flexible(
+                  flex: 0,
                     child: OptionView(
                   disabled: widget.disabled,
                   changeSpeedStrength: (val) {
@@ -56,22 +58,22 @@ class ControllerState extends State<Controller>
               ],
             ),
           ),
-          // left - right
-          SizedBox(height: 100),
-          // forward - backward
-          Container(
-            margin: EdgeInsets.only(left: 20),
-            child: MySlider(
-              orient: Orients.horizontal,
-              disabled: widget.disabled,
-              valueChange: (value) {
-                widget.client.send({"type": "forward-backward", "value": value});
-              },
-            ),
-          ),
+          Flexible(
+              flex: 4,
+              child: Container(
+                margin: EdgeInsets.only(left: 20, top: 40, bottom: 30),
+                child: MySlider(
+                  orient: Orients.horizontal,
+                  disabled: widget.disabled,
+                  valueChange: (value) {
+                    widget.client
+                        .send({"type": "forward-backward", "value": value});
+                  },
+                ),
+              ))
         ],
       ),
-    ));
+    );
   }
 
   @override
