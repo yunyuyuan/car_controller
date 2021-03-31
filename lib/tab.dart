@@ -32,14 +32,10 @@ class MyTabView extends DefaultTabController {
               indicatorColor: Colors.transparent,
             ),
             appBar: AppBar(
-              backgroundColor: Color(0xff424242),
               title: Row(
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
                   ),
                   Text(
                     '(${connected ? "已" : "未"}连接)',
