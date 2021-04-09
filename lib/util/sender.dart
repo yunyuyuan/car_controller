@@ -15,8 +15,8 @@ class BluetoothClient{
   Future connect(Function disconnectHandle) async {
     var handle = Completer();
     BluetoothConnection.toAddress(server.address).then((_connection){
-      recv(disconnectHandle);
       connection = _connection;
+      recv(disconnectHandle);
       handle.complete();
     }).onError((error, stackTrace){
       handle.completeError(error);

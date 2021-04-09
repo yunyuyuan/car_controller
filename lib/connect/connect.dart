@@ -102,8 +102,8 @@ class ConnectState extends State<Connect>
                               });
                               setState(() {
                                 active = e;
-                                widget.changeClient(instance);
                               });
+                              widget.changeClient(instance);
                             } catch (err) {
                               Util.showSnackbar(
                                   context: context,

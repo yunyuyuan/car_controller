@@ -142,6 +142,7 @@ class SliderState extends State<MySlider> {
                 height: grooveHeight,
                 child: Transform.rotate(
                     angle: valueNow < 0 ?pi : 0,
+                    alignment: FractionalOffset.centerLeft,
                     child: Container(
                       decoration: trackDecoration,
                     ))),
@@ -202,6 +203,7 @@ class SliderState extends State<MySlider> {
                 height: valueNow.abs() * divide,
                 child: Transform.rotate(
                     angle: valueNow < 0 ? pi : 0,
+                    alignment: FractionalOffset.topCenter,
                     child: Container(
                       decoration: trackDecoration,
                     ))),

@@ -39,8 +39,16 @@ class DeviceItem extends ListTile {
                     size: 24,
                   ),
                   Text(device.name),
+                  connecting?
+                  SizedBox(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                    ),
+                    height: 24,
+                    width: 24,
+                  ):
                   Icon(
-                    connecting?Icons.autorenew:IconFont.connected,
+                    IconFont.connected,
                     size: 24,
                     color: active ? Colors.indigoAccent : Colors.white.withOpacity(0),
                   ),
