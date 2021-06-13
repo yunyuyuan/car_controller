@@ -38,9 +38,12 @@ class BluetoothClient{
 
   recv(Function disconnectHandle){
     connection.input.listen((Uint8List data) {
-      if (ascii.decode(data).contains('!')) {
-        disconnect();
-        disconnectHandle("Disconnecting by local host");
+      try {
+        if (ascii.decode(data).contains('!')) {
+          disconnect();
+          disconnectHandle("Disconnecting by local host");
+        }
+      }catch (e){
       }
     }).onDone(() {
       disconnectHandle("Disconnecting by remote host");
